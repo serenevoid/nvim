@@ -4,7 +4,6 @@ VoidGroup = augroup('Void', {})
 require("void.packer")
 require("void.set")
 require("void.neogit")
-require("void.color")
 -- require("void.telescope")
 
 local autocmd = vim.api.nvim_create_autocmd

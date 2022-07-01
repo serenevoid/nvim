@@ -14,11 +14,16 @@ return require('packer').startup(function()
   -- Telescope
   use('nvim-telescope/telescope.nvim')
 
+  -- Treesitter
+  use('nvim-treesitter/nvim-treesitter', {
+	  run = ':TSUpdate'
+  })
+  use('nvim-treesitter/nvim-treesitter-context')
+
   -- Harpoon
   use('ThePrimeagen/harpoon')
 
   -- Colorscheme
   use('folke/tokyonight.nvim')
   use('gruvbox-community/gruvbox')
-
 end)
