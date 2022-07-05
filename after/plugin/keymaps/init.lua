@@ -5,11 +5,10 @@ local inoremap = Remap.inoremap
 local xnoremap = Remap.xnoremap
 local nmap = Remap.nmap
 
-nnoremap("<leader>pv", ":Ex<CR>")
-nnoremap("<leader>u", ":UndotreeShow<CR>")
+nnoremap("<leader>pv", "<cmd>Ex<CR>")
 
-vnoremap("J", ":m '>+1<CR>gv=gv")
-vnoremap("K", ":m '<-2<CR>gv=gv")
+vnoremap("J", "<cmd>m '>+1<CR>gv=gv")
+vnoremap("K", "<cmd>m '<-2<CR>gv=gv")
 
 nnoremap("Y", "yg$")
 nnoremap("n", "nzzzv")
@@ -41,5 +40,5 @@ nnoremap("<C-j>", "<cmd>cprev<CR>zz")
 nnoremap("<leader>k", "<cmd>lnext<CR>zz")
 nnoremap("<leader>j", "<cmd>lprev<CR>zz")
 
-nnoremap("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+nnoremap("<leader>s", "<cmd>%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 nnoremap("<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })

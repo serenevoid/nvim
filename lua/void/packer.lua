@@ -5,9 +5,6 @@ return require('packer').startup(function()
     -- Neogit
     use('TimUntersberger/neogit')
 
-    -- Undotree
-    use('jiaoshijie/undotree')
-
     -- Common Functions library
     use('nvim-lua/plenary.nvim')
     use("nvim-lua/popup.nvim")
@@ -27,9 +24,7 @@ return require('packer').startup(function()
     use('nvim-telescope/telescope.nvim')
 
     -- Treesitter
-    use('nvim-treesitter/nvim-treesitter', {
-      run = ':TSUpdate'
-    })
+    use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
     use('nvim-treesitter/nvim-treesitter-context')
 
     -- Harpoon
