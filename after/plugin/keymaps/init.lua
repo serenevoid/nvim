@@ -7,8 +7,8 @@ local nmap = Remap.nmap
 
 nnoremap("<leader>pv", "<cmd>Ex<CR>")
 
-vnoremap("J", "<cmd>m '>+1<CR>gv=gv")
-vnoremap("K", "<cmd>m '<-2<CR>gv=gv")
+vnoremap("J", ":m '>+1<CR>gv=gv")
+vnoremap("K", ":m '<-2<CR>gv=gv")
 
 nnoremap("Y", "yg$")
 nnoremap("n", "nzzzv")
