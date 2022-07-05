@@ -25,6 +25,12 @@ inoremap("<c-j>", "<cmd>lua require'luasnip'.jump(1)<CR>", opts)
 inoremap("<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)
 inoremap("<c-u>", require("luasnip.extras.select_choice"), opts)
 
+local same = function(index)
+  return f(function(args)
+    return args[1]
+  end, { index })
+end
+
 local date = function() return { os.date('%Y-%m-%d') } end
 
 ls.add_snippets(nil, {
