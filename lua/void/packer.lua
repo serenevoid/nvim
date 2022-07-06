@@ -35,4 +35,5 @@ return require('packer').startup(function()
     -- Colorscheme
     use('folke/tokyonight.nvim')
     use('gruvbox-community/gruvbox')
+    use('/home/void/dev/projects/kiwi.nvim')
 end)
