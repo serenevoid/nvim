@@ -4,7 +4,7 @@ VoidGroup = augroup('Void', {})
 require("void.packer")
 require("void.set")
 require("void.neogit")
--- require("void.telescope")
+require("void.globals")
 
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup('HighlightYank', {})
