@@ -138,4 +138,7 @@ require("lspconfig").sumneko_lua.setup(config({
 }))
 
 -- Rust LSP
-lspconfig.rust_analyzer.setup {}
+lspconfig.rust_analyzer.setup(config({ }))
+
+-- Typescript LSP
+lspconfig.tsserver.setup(config({ }))
