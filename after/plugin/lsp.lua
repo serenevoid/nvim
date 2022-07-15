@@ -3,6 +3,8 @@ local nnoremap = Remap.nnoremap
 local inoremap = Remap.inoremap
 
 local lspkind = require("lspkind")
+local autopairs = require("nvim-autopairs")
+autopairs.setup({})
 
 -- Setup nvim-cmp.
 local cmp = require("cmp")
