@@ -86,6 +86,10 @@ function is_readonly()
 	return ""
 end
 
+function get_file_icon(buffer)
+    return require("nvim-web-devicons").get_icon_by_filetype(vim.bo.filetype, { default = true })
+end
+
 function process_diagnostics(prefix, n, hl)
 	local out = prefix .. n
 	if n > 0 then
@@ -132,7 +136,7 @@ function status_line()
 	return table.concat({
 		gen_section(accent_color, { get_mode_group_display_name(mg) }),
 		"%=",
-		gen_section(emph_highlight, { is_readonly(), "%t", is_modified() }),
+		gen_section(emph_highlight, { is_readonly(), get_file_icon(), "%f", is_modified() }),
 		"%=",
 		gen_section(dark_highlight, {
 			process_diagnostics("E:", diagnostics.errors, "%#LspDiagnosticsDefaultError#"),
