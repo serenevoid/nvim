@@ -59,7 +59,8 @@ end
 
 -- get the highlight group for a mode group
 function get_mode_group_color(mg)
-	return "%#Status" .. mg .. "#"
+    vim.cmd("highlight ModeColor guifg=red guibg=#32344a")
+	return "%#ModeColor" .. mg .. "#"
 end
 
 -- get the display name for the group
