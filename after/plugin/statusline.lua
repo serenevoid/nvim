@@ -116,18 +116,6 @@ local function get_lsp_diagnostics(bufnr)
 	return result
 end
 
---[[
-local type_patterns = {"class", "function", "method", "struct", "enum", "interface", "module", "namespace"}
-local function treesitter()
-    local sl = require("nvim-treesitter").statusline {type_patterns = type_patterns}
-    if sl == nil then
-        return ""
-    end
-    return sl:match("(.*)%(")
-    -- return sl:sub(1, sl:match("%("))
-end ]]
-
--- selene: allow(unused_variable)
 function status_line()
 	local diagnostics = get_lsp_diagnostics()
 	local mode = vim.fn.mode()
@@ -136,6 +124,7 @@ function status_line()
 
 	return table.concat({
 		gen_section(accent_color, { get_mode_group_display_name(mg) }),
+		gen_section(emph_highlight, { " " .. vim.b.gitsigns_head }),
 		"%=",
 		gen_section(emph_highlight, { is_readonly(), get_file_icon(), "%f", is_modified() }),
 		"%=",
