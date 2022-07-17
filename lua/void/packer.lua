@@ -4,7 +4,7 @@ return require('packer').startup(function()
 
     -- Neogit
     use('TimUntersberger/neogit')
-
+    use('lewis6991/gitsigns.nvim')
     -- Common Functions library
     use('nvim-lua/plenary.nvim')
     use("nvim-lua/popup.nvim")
