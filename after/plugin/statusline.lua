@@ -1,6 +1,6 @@
 local Job = require("plenary.job")
 
-function gen_section(hl_string, items)
+local function gen_section(hl_string, items)
     local out = ""
     local bracket_left = "["
     local bracket_right = "]"
@@ -27,7 +27,7 @@ local emph_highlight = "%#StatusLine#"
 local dark_highlight = "%#StatusLine#"
 
 -- sensibly group the vim modes
-function get_mode_group(m)
+local function get_mode_group(m)
     local mode_groups = {
         n = "Normal",
         no = "Nop",
@@ -64,18 +64,18 @@ function get_mode_group(m)
 end
 
 -- get the highlight group for a mode group
-function get_mode_group_color(mg)
+local function get_mode_group_color(mg)
     vim.cmd("highlight ModeColor guifg=red guibg=#32344a")
     return "%#ModeColor" .. mg .. "#"
 end
 
 -- get the display name for the group
-function get_mode_group_display_name(mg)
+local function get_mode_group_display_name(mg)
     return mg:upper()
 end
 
 -- whether the file has been modified
-function is_modified()
+local function is_modified()
     if vim.bo.modified then
         if vim.bo.readonly then
             return "-"
@@ -86,18 +86,18 @@ function is_modified()
 end
 
 -- whether the file is read-only
-function is_readonly()
+local function is_readonly()
     if vim.bo.readonly then
         return "RO"
     end
     return ""
 end
 
-function get_file_icon(buffer)
+local function get_file_icon(buffer)
     return require("nvim-web-devicons").get_icon_by_filetype(vim.bo.filetype, { default = true })
 end
 
-function get_git_branch()
+local function get_git_branch()
     local buf_name = vim.api.nvim_buf_get_name(0)
     local j = Job:new {
         command = "git",
@@ -116,7 +116,7 @@ function get_git_branch()
     end
 end
 
-function process_diagnostics(prefix, n, hl)
+local function process_diagnostics(prefix, n, hl)
     local out = prefix .. n
     if n > 0 then
         return hl .. out .. dark_highlight
@@ -141,8 +141,23 @@ local function get_lsp_diagnostics(bufnr)
     return result
 end
 
-function status_line()
+local function setup_diagnostics()
     local diagnostics = get_lsp_diagnostics()
+    local errors = diagnostics.errors
+    local warnings = diagnostics.warnings
+
+    if errors == 0 and warnings == 0 then
+        return ""
+    else
+    return table.concat{
+        process_diagnostics(" ", errors, "%#LspDiagnosticsDefaultError#"),
+        process_diagnostics("  ", warnings, "%#LspDiagnosticsDefaultWarning#"),
+    }
+    end
+
+end
+
+function status_line()
     local mode = vim.fn.mode()
     local mg = get_mode_group(mode)
     local accent_color = get_mode_group_color(mg)
@@ -153,10 +168,7 @@ function status_line()
         "%=",
         gen_section(emph_highlight, { is_readonly(), get_file_icon(), "%f", is_modified() }),
         "%=",
-        gen_section(dark_highlight, {
-            process_diagnostics("E:", diagnostics.errors, "%#LspDiagnosticsDefaultError#"),
-            process_diagnostics("W:", diagnostics.warnings, "%#LspDiagnosticsDefaultWarning#"),
-        }),
+        gen_section(dark_highlight, { setup_diagnostics() }),
         gen_section(dark_highlight, { vim.b.gitsigns_status or "" }),
         gen_section(emph_highlight, { vim.bo.filetype, }),
         gen_section(emph_highlight, { "%p%%" }),
