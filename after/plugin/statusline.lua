@@ -23,8 +23,8 @@ end
 
 
 
-local emph_highlight = "%#StatusLine#"
-local dark_highlight = "%#StatusLine#"
+local emph_highlight = "%#StatusLineAccent#"
+local dark_highlight = "%#StatusLineDark#"
 
 -- sensibly group the vim modes
 local function get_mode_group(m)
@@ -65,8 +65,8 @@ end
 
 -- get the highlight group for a mode group
 local function get_mode_group_color(mg)
-    vim.cmd("highlight ModeColor guifg=red guibg=#32344a")
-    return "%#ModeColor" .. mg .. "#"
+    vim.cmd("highlight StatusLeft guifg=red guibg=#32344a")
+    return "%#StatusLeft" .. mg .. "#"
 end
 
 -- get the display name for the group
