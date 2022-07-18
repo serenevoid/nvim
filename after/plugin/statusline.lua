@@ -4,8 +4,9 @@ function gen_section(hl_string, items)
     local out = ""
     local bracket_left = "["
     local bracket_right = "]"
+    local padding = " "
     for _, item in pairs(items) do
-        if item ~= "" then
+        if item ~= "" and item ~= nil then
             if out == "" then
                 out = "" .. item
             else
@@ -14,10 +15,13 @@ function gen_section(hl_string, items)
         else
             bracket_left = ""
             bracket_right = ""
+            padding = ""
         end
     end
-    return hl_string .. bracket_left .. out .. bracket_right .. " "
+    return hl_string .. bracket_left .. out .. bracket_right .. padding
 end
+
+
 
 local emph_highlight = "%#StatusLine#"
 local dark_highlight = "%#StatusLine#"
@@ -153,10 +157,8 @@ function status_line()
             process_diagnostics("E:", diagnostics.errors, "%#LspDiagnosticsDefaultError#"),
             process_diagnostics("W:", diagnostics.warnings, "%#LspDiagnosticsDefaultWarning#"),
         }),
-        gen_section(dark_highlight, {
-            vim.b.gitsigns_status,
-        }),
-        gen_section(emph_highlight, { vim.bo.filetype }),
+        gen_section(dark_highlight, { vim.b.gitsigns_status or "" }),
+        gen_section(emph_highlight, { vim.bo.filetype, }),
         gen_section(emph_highlight, { "%p%%" }),
         gen_section(accent_color, { "%l:%c" }),
     })
