@@ -87,15 +87,8 @@ local function get_file_icon()
 end
 
 local function get_git_branch()
-    local buf_name = vim.api.nvim_buf_get_name(0)
-    local j = Job:new {
-        command = "git",
-        args = { "branch", "--show-current" },
-        cwd = vim.fn.fnamemodify(buf_name, ":h"),
-    }
-
     local ok, result = pcall(function()
-        return vim.trim(j:sync()[1])
+        return require("neogit").lib.git.branch.current()
     end)
 
     if ok then
