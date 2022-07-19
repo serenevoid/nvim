@@ -1,6 +1,6 @@
 local Job = require("plenary.job")
 
-local function gen_section(hl_string, items)
+local function gen_section(items)
     local out = ""
     local bracket_left = "["
     local bracket_right = "]"
@@ -18,13 +18,8 @@ local function gen_section(hl_string, items)
             padding = ""
         end
     end
-    return hl_string .. bracket_left .. out .. bracket_right .. padding
+    return bracket_left .. out .. bracket_right .. padding
 end
-
-
-
-local emph_highlight = "%#StatusLineAccent#"
-local dark_highlight = "%#StatusLineDark#"
 
 -- sensibly group the vim modes
 local function get_mode_group(m)
@@ -63,12 +58,6 @@ local function get_mode_group(m)
     return mode_groups[m] or "None"
 end
 
--- get the highlight group for a mode group
-local function get_mode_group_color(mg)
-    vim.cmd("highlight StatusLeft guifg=red guibg=#32344a")
-    return "%#StatusLeft" .. mg .. "#"
-end
-
 -- get the display name for the group
 local function get_mode_group_display_name(mg)
     return mg:upper()
@@ -93,7 +82,7 @@ local function is_readonly()
     return ""
 end
 
-local function get_file_icon(buffer)
+local function get_file_icon()
     return require("nvim-web-devicons").get_icon_by_filetype(vim.bo.filetype, { default = true })
 end
 
@@ -116,11 +105,8 @@ local function get_git_branch()
     end
 end
 
-local function process_diagnostics(prefix, n, hl)
+local function process_diagnostics(prefix, n)
     local out = prefix .. n
-    if n > 0 then
-        return hl .. out .. dark_highlight
-    end
     return out
 end
 
@@ -150,8 +136,8 @@ local function setup_diagnostics()
         return ""
     else
     return table.concat{
-        process_diagnostics(" ", errors, "%#LspDiagnosticsDefaultError#"),
-        process_diagnostics("  ", warnings, "%#LspDiagnosticsDefaultWarning#"),
+        process_diagnostics(" ", errors),
+        process_diagnostics("  ", warnings),
     }
     end
 
@@ -160,19 +146,18 @@ end
 function status_line()
     local mode = vim.fn.mode()
     local mg = get_mode_group(mode)
-    local accent_color = get_mode_group_color(mg)
 
     return table.concat({
-        gen_section(accent_color, { get_mode_group_display_name(mg) }),
-        gen_section(emph_highlight, { get_git_branch() }),
+        gen_section({ get_mode_group_display_name(mg) }),
+        gen_section({ get_git_branch() }),
         "%=",
-        gen_section(emph_highlight, { is_readonly(), get_file_icon(), "%f", is_modified() }),
+        gen_section({ is_readonly(), get_file_icon(), "%f", is_modified() }),
         "%=",
-        gen_section(dark_highlight, { setup_diagnostics() }),
-        gen_section(dark_highlight, { vim.b.gitsigns_status or "" }),
-        gen_section(emph_highlight, { vim.bo.filetype, }),
-        gen_section(emph_highlight, { "%p%%" }),
-        gen_section(accent_color, { "%l:%c" }),
+        gen_section({ setup_diagnostics() }),
+        gen_section({ vim.b.gitsigns_status or "" }),
+        gen_section({ vim.bo.filetype, }),
+        gen_section({ "%p%%" }),
+        gen_section({ "%l:%c" }),
     })
 end
 
