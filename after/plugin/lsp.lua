@@ -144,3 +144,6 @@ lspconfig.rust_analyzer.setup(config({ }))
 
 -- Typescript LSP
 lspconfig.tsserver.setup(config({ }))
+
+-- Python LSP
+lspconfig.pyright.setup(config({ }))

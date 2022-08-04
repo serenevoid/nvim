@@ -86,18 +86,6 @@ local function get_file_icon()
     return require("nvim-web-devicons").get_icon_by_filetype(vim.bo.filetype, { default = true })
 end
 
-local function get_git_branch()
-    local ok, result = pcall(function()
-        return require("neogit").lib.git.branch.current()
-    end)
-
-    if ok then
-        return " " .. result
-    else
-        return ""
-    end
-end
-
 local function process_diagnostics(prefix, n)
     local out = prefix .. n
     return out
@@ -142,7 +130,7 @@ function status_line()
 
     return table.concat({
         gen_section({ get_mode_group_display_name(mg) }),
-        gen_section({ get_git_branch() }),
+        gen_section({ vim.b.gitsigns_head or "" }),
         "%=",
         gen_section({ is_readonly(), get_file_icon(), "%f", is_modified() }),
         "%=",
