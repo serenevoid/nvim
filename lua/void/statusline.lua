@@ -132,7 +132,7 @@ function status_line()
         gen_section({ get_mode_group_display_name(mg) }),
         gen_section({ vim.b.gitsigns_head or "" }),
         "%=",
-        gen_section({ is_readonly(), get_file_icon(), "%f", is_modified() }),
+        gen_section({ is_readonly(), get_file_icon(), "%t", is_modified() }),
         "%=",
         gen_section({ setup_diagnostics() }),
         gen_section({ vim.b.gitsigns_status or "" }),
