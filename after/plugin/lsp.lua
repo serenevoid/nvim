@@ -139,8 +139,6 @@ require("lspconfig").sumneko_lua.setup(config({
     },
 }))
 
--- Rust LSP
-
 -- Typescript LSP
 lspconfig.tsserver.setup(config({}))
 
@@ -148,28 +146,4 @@ lspconfig.tsserver.setup(config({}))
 lspconfig.pyright.setup(config({}))
 
 -- Rust LSP
--- lspconfig.rust_analyzer.setup(config({}))
-local rt = require("rust-tools")
-
-rt.setup({
-    server = {
-        capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-        on_attach = function()
-            local opts = { noremap = true, silent = true, buffer = 0 }
-            nnoremap("K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-            nnoremap("<Leader>w", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-            nnoremap("<Leader>dk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-            nnoremap("<Leader>dj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-            nnoremap("<Leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
-            nnoremap("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-            nnoremap("<Leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-            nnoremap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-            nnoremap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-            nnoremap("gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-            inoremap("<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-            nnoremap("<Leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-            nnoremap("<Leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-            nnoremap("<Leader>ca", rt.code_action_group.code_action_group, opts)
-        end,
-    },
-})
+lspconfig.rust_analyzer.setup(config({}))

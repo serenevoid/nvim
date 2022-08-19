@@ -24,9 +24,6 @@ return require('packer').startup(function()
     use("saadparwaiz1/cmp_luasnip")
     use("windwp/nvim-autopairs")
 
-    -- Rust Tools
-    use("simrat39/rust-tools.nvim")
-
     -- Telescope
     use('nvim-telescope/telescope.nvim')
 
