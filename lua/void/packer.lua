@@ -1,10 +1,12 @@
 return require('packer').startup(function()
+
     -- packer can manage itself
     use('wbthomason/packer.nvim')
 
     -- Neogit
     use('TimUntersberger/neogit')
     use('lewis6991/gitsigns.nvim')
+
     -- Common Functions library
     use('nvim-lua/plenary.nvim')
     use("nvim-lua/popup.nvim")
@@ -18,10 +20,12 @@ return require('packer').startup(function()
     use("hrsh7th/cmp-nvim-lua")
     use("onsails/lspkind-nvim")
     use("glepnir/lspsaga.nvim")
-    use("simrat39/symbols-outline.nvim")
     use("L3MON4D3/LuaSnip")
     use("saadparwaiz1/cmp_luasnip")
     use("windwp/nvim-autopairs")
+
+    -- Rust Tools
+    use("simrat39/rust-tools.nvim")
 
     -- Telescope
     use('nvim-telescope/telescope.nvim')
