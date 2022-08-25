@@ -4,6 +4,7 @@ local inoremap = Remap.inoremap
 
 local lspkind = require("lspkind")
 local autopairs = require("nvim-autopairs")
+require('Comment').setup()
 autopairs.setup({})
 
 -- Setup nvim-cmp.
