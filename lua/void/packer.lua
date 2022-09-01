@@ -35,6 +35,6 @@ return require('packer').startup(function()
     use('ThePrimeagen/harpoon')
 
     -- Colorscheme
-    use('gruvbox-community/gruvbox')
+    use('folke/tokyonight.nvim')
     use('kyazdani42/nvim-web-devicons')
 end)
