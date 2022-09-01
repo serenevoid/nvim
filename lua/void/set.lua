@@ -31,3 +31,5 @@ vim.opt.colorcolumn = "80"
 vim.g.mapleader = " "
 vim.g.splitright = true
 vim.g.splitbelow = true
+vim.cmd("colorscheme gruvbox")
+vim.g.background = "dark"

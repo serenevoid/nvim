@@ -30,13 +30,11 @@ return require('packer').startup(function()
 
     -- Treesitter
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
-    use('nvim-treesitter/nvim-treesitter-context')
 
     -- Harpoon
     use('ThePrimeagen/harpoon')
 
     -- Colorscheme
-    use('folke/tokyonight.nvim')
     use('gruvbox-community/gruvbox')
     use('kyazdani42/nvim-web-devicons')
 end)
