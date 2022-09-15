@@ -9,7 +9,9 @@ nnoremap("<leader>pv", "<cmd>Ex<CR>")
 
 vnoremap("J", ":m '>+1<CR>gv=gv")
 vnoremap("K", ":m '<-2<CR>gv=gv")
+vnoremap("c", "\"_c")
 
+nnoremap("c", "\"_c")
 nnoremap("Y", "yg$")
 nnoremap("n", "nzzzv")
 nnoremap("N", "Nzzzv")
