@@ -37,4 +37,7 @@ return require('packer').startup(function()
     -- Colorscheme
     use('folke/tokyonight.nvim')
     use('kyazdani42/nvim-web-devicons')
+    
+    -- Neorg
+    use('nvim-neorg/neorg')
 end)
