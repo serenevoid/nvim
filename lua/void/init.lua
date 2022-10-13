@@ -3,7 +3,6 @@ VoidGroup = augroup('Void', {})
 
 require("void.globals")
 require("void.neogit")
-require("void.org")
 require("void.packer")
 require("void.set")
 require("void.statusline")
