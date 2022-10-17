@@ -6,6 +6,7 @@ require("void.neogit")
 require("void.packer")
 require("void.set")
 require("void.statusline")
+require("void.wiki")
 
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup('HighlightYank', {})
