@@ -81,7 +81,7 @@ local lspconfig = require("lspconfig")
 
 local config = function(_config)
     return vim.tbl_deep_extend("force", {
-        capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+        capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
         on_attach = function()
             local opts = { noremap = true, silent = true, buffer = 0 }
             nnoremap("K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
