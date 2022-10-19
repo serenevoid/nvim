@@ -37,6 +37,27 @@ wiki.open_index = function()
     vim.api.nvim_win_set_buf(0, bufnr)
 end
 
+wiki.create_wiki_file = function()
+    local selection_start = vim.fn.getpos("'<")
+    local selection_end = vim.fn.getpos("'>")
+    local line = vim.fn.getline(selection_start[2], selection_end[2])
+    local name = line[1]:sub(selection_start[3], selection_end[3])
+    local filename = name:gsub(" ", "_"):gsub("\\", "") .. ".md"
+    local sep = Path.path.sep
+    local new_mkdn = '[' .. name .. "](." .. sep .. "journal" .. sep .. filename .. ")"
+    local nline = line[1]:sub(0, selection_start[3] - 1) .. new_mkdn .. line[1]:sub(selection_end[3] + 1, string.len(line[1]))
+    vim.api.nvim_set_current_line(nline)
+    local journal_dir = home .. sep .. "wiki" .. sep .. "journal"
+    local new_bufnr = vim.fn.bufnr(journal_dir .. sep .. filename, true)
+    for _, win_id in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        local open_bufnr = vim.api.nvim_win_get_buf(win_id)
+        if open_bufnr == new_bufnr then
+            return vim.api.nvim_set_current_win(win_id)
+        end
+    end
+    vim.api.nvim_win_set_buf(0, new_bufnr)
+end
+
 nnoremap("<leader>ww", ":lua require(\"void.wiki\").open_index()<CR>")
 nnoremap("<leader>wd", ":lua require(\"void.wiki\").create_diary_entry()<CR>")
 
