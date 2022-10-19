@@ -4,26 +4,31 @@ local nnoremap = require('void.keymap').nnoremap
 
 local wiki = {}
 
+-- Create a new Diary entry
 wiki.create_diary_entry = function()
     local sep = Path.path.sep
     local diary_path = home .. sep .. "wiki" .. sep .. "diary"
     local diary_name = string.format(diary_path .. sep .. "%s.md", os.date "%Y_%m_%d")
     vim.fn.mkdir(diary_path, "p")
     local bufnr = vim.fn.bufnr(diary_name, true)
+    Set_buf_keymaps(bufnr)
     Open_buffer(bufnr)
 end
 
+-- Open the Index.md file of wiki and change working directory
 wiki.open_index = function()
     local sep = Path.path.sep
     vim.fn.mkdir(home .. sep .. "wiki", "p")
     local index_path = home .. sep .. "wiki" .. sep .. "index.md"
     local journal_dir = home .. sep .. "wiki" .. sep .. "journal"
     vim.fn.mkdir(journal_dir, "p")
+    vim.api.nvim_set_current_dir(home .. sep .. "wiki")
     local bufnr = vim.fn.bufnr(index_path, true)
-    Set_keymaps(bufnr)
+    Set_buf_keymaps(bufnr)
     Open_buffer(bufnr)
 end
 
+-- Create a new Wiki entry in Journal folder on highlighting word and pressing <CR>
 wiki.create_wiki_file = function()
     local selection_start = vim.fn.getpos("'<")
     local selection_end = vim.fn.getpos("'>")
@@ -37,11 +42,30 @@ wiki.create_wiki_file = function()
     vim.api.nvim_set_current_line(nline)
     local journal_dir = home .. sep .. "wiki" .. sep .. "journal"
     local bufnr = vim.fn.bufnr(journal_dir .. sep .. filename, true)
-    Set_keymaps(bufnr)
+    Set_buf_keymaps(bufnr)
     Open_buffer(bufnr)
 end
 
-Set_keymaps = function(bufnr)
+-- Open links when cursor is above a link and <CR> is pressed
+wiki.open_link = function()
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local line = vim.fn.getline(cursor[1])
+    local filename_pos = Is_link(cursor, line)
+    if (filename_pos ~= nil) then
+        local filename = line:sub(unpack(filename_pos))
+        if (filename:sub(0, 4) ~= "http") then
+            local bufnr = vim.fn.bufnr(filename, true)
+            print(filename)
+            if bufnr ~= -1 then
+                Set_buf_keymaps(bufnr)
+                Open_buffer(bufnr)
+            end
+        end
+    end
+end
+
+-- Set window specific keymaps
+Set_buf_keymaps = function(bufnr)
     vim.api.nvim_buf_set_keymap(
         bufnr,
         "v",
@@ -52,8 +76,19 @@ Set_keymaps = function(bufnr)
             silent = true,
             nowait = true,
         })
+    vim.api.nvim_buf_set_keymap(
+        bufnr,
+        "n",
+        "<CR>",
+        ":lua require(\"void.wiki\").open_link()<CR>",
+        {
+            noremap = true,
+            silent = true,
+            nowait = true,
+        })
 end
 
+-- Open a buffer inside the current window
 Open_buffer = function(bufnr)
     for _, win_id in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
         local open_bufnr = vim.api.nvim_win_get_buf(win_id)
@@ -62,6 +97,50 @@ Open_buffer = function(bufnr)
         end
     end
     vim.api.nvim_win_set_buf(0, bufnr)
+end
+
+-- Check if the cursor is on a link on the line
+Is_link = function(cursor, line)
+    local is_inside_link = { false, false, false, false }
+    local filename_pos = {}
+    for i = cursor[2] + 1, 0, -1 do
+        local char = line:sub(i, i)
+        if char == "[" then
+            is_inside_link[1] = true
+            break
+        elseif char == "]" then
+            is_inside_link[2] = true
+        elseif char == "(" then
+            is_inside_link[3] = true
+            filename_pos[1] = i
+        end
+        if i == 100 then
+            error("Limit exceeded", 1)
+            break
+        end
+    end
+    for i = cursor[2] + 1, string.len(line), 1 do
+        local char = line:sub(i, i)
+        if char == "]" then
+            is_inside_link[2] = true
+        elseif char == "(" then
+            is_inside_link[3] = true
+            filename_pos[1] = i + 1
+        elseif char == ")" then
+            is_inside_link[4] = true
+            filename_pos[2] = i - 1
+            break
+        end
+        if i == 100 then
+            error("Limit exceeded", 1)
+            break
+        end
+    end
+    if (is_inside_link[1] and is_inside_link[2] and is_inside_link[3] and is_inside_link[4]) then
+        return filename_pos
+    else
+        return nil
+    end
 end
 
 nnoremap("<leader>ww", ":lua require(\"void.wiki\").open_index()<CR>")
