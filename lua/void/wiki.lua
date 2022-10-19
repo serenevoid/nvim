@@ -27,6 +27,7 @@ wiki.open_index = function()
     local journal_dir = home .. sep .. "wiki" .. sep .. "journal"
     vim.fn.mkdir(journal_dir, "p")
     local bufnr = vim.fn.bufnr(index_path, true)
+    vim.api.nvim_buf_set_keymap(bufnr, "v", "<CR>", ":'<,'>lua require(\"void.wiki\").create_wiki_file()<CR>", {})
     for _, win_id in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
         local open_bufnr = vim.api.nvim_win_get_buf(win_id)
         if open_bufnr == bufnr then
@@ -45,17 +46,28 @@ wiki.create_wiki_file = function()
     local filename = name:gsub(" ", "_"):gsub("\\", "") .. ".md"
     local sep = Path.path.sep
     local new_mkdn = '[' .. name .. "](." .. sep .. "journal" .. sep .. filename .. ")"
-    local nline = line[1]:sub(0, selection_start[3] - 1) .. new_mkdn .. line[1]:sub(selection_end[3] + 1, string.len(line[1]))
+    local nline = line[1]:sub(0, selection_start[3] - 1) ..
+        new_mkdn .. line[1]:sub(selection_end[3] + 1, string.len(line[1]))
     vim.api.nvim_set_current_line(nline)
     local journal_dir = home .. sep .. "wiki" .. sep .. "journal"
-    local new_bufnr = vim.fn.bufnr(journal_dir .. sep .. filename, true)
+    local bufnr = vim.fn.bufnr(journal_dir .. sep .. filename, true)
+    vim.api.nvim_buf_set_keymap(
+        bufnr,
+        "v",
+        "<CR>",
+        ":'<,'>lua require(\"void.wiki\").create_wiki_file()<CR>",
+        {
+            noremap = true,
+            silent = true,
+            nowait = true,
+        })
     for _, win_id in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
         local open_bufnr = vim.api.nvim_win_get_buf(win_id)
-        if open_bufnr == new_bufnr then
+        if open_bufnr == bufnr then
             return vim.api.nvim_set_current_win(win_id)
         end
     end
-    vim.api.nvim_win_set_buf(0, new_bufnr)
+    vim.api.nvim_win_set_buf(0, bufnr)
 end
 
 nnoremap("<leader>ww", ":lua require(\"void.wiki\").open_index()<CR>")
