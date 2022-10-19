@@ -2,9 +2,9 @@ local augroup = vim.api.nvim_create_augroup
 VoidGroup = augroup('Void', {})
 
 require("void.globals")
-require("void.neogit")
-require("void.packer")
 require("void.set")
+require("void.packer")
+require("void.neogit")
 require("void.statusline")
 require("void.wiki")
 
