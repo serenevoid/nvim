@@ -64,6 +64,37 @@ wiki.open_link = function()
     end
 end
 
+wiki.toggle_todo = function()
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local line = vim.fn.getline(cursor[1])
+    local box_start = 0
+    local box_end = 0
+    for i = 0, string.len(line) - 1, 1 do
+        local char = line:sub(i, i)
+        if char == "[" then
+            box_start = i
+            break
+        end
+        if i == 100 then
+            error("Limit exceeded", 1)
+            break
+        end
+    end
+    if line:sub(box_start + 2, box_start + 2) == "]" then
+        box_end = box_start + 2
+    end
+    local state = line:sub(box_start + 1, box_start + 1)
+    if state == " " then
+        state = "-"
+    elseif state == "-" then
+        state = "x"
+    elseif state == "x" then
+        state = " "
+    end
+    local newline = line:sub(0, box_start) .. state .. line:sub(box_end, string.len(line))
+    vim.api.nvim_set_current_line(newline)
+end
+
 -- Set window specific keymaps
 Set_buf_keymaps = function(bufnr)
     vim.api.nvim_buf_set_keymap(
@@ -81,6 +112,16 @@ Set_buf_keymaps = function(bufnr)
         "n",
         "<CR>",
         ":lua require(\"void.wiki\").open_link()<CR>",
+        {
+            noremap = true,
+            silent = true,
+            nowait = true,
+        })
+    vim.api.nvim_buf_set_keymap(
+        bufnr,
+        "n",
+        "tt",
+        ":lua require(\"void.wiki\").toggle_todo()<CR>",
         {
             noremap = true,
             silent = true,
