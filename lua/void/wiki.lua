@@ -127,26 +127,6 @@ Set_buf_keymaps = function(bufnr)
             silent = true,
             nowait = true,
         })
-    vim.api.nvim_buf_set_keymap(
-        bufnr,
-        "n",
-        "<Tab>",
-        "//\\[.+]\\(..\\w+.\\w+.md\\)/ %<CR>",
-        {
-            noremap = true,
-            silent = true,
-            nowait = true,
-        })
-    vim.api.nvim_buf_set_keymap(
-        bufnr,
-        "n",
-        "<S-Tab>",
-        "?/\\[.+]\\(..\\w+.\\w+.md\\)/ %<CR>",
-        {
-            noremap = true,
-            silent = true,
-            nowait = true,
-        })
 end
 -- Open a buffer inside the current window
 Open_buffer = function(bufnr)
