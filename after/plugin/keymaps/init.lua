@@ -18,7 +18,6 @@ nnoremap("<C-d>", "<C-d>zz")
 nnoremap("<C-u>", "<C-u>zz")
 
 nnoremap("<leader>y", "\"+y")
-vnoremap("<leader>y", "\"+y")
 nnoremap("<leader>Y", "\"+Y")
 
 nnoremap("<leader>d", "\"_d")
@@ -31,7 +30,7 @@ inoremap("<C-c>", "<Esc>")
 
 nnoremap("Q", "<nop>")
 
-nnoremap("<C-k>", "<cmd>cnext<CR>zz")
-nnoremap("<C-j>", "<cmd>cprev<CR>zz")
-nnoremap("<leader>k", "<cmd>lnext<CR>zz")
-nnoremap("<leader>j", "<cmd>lprev<CR>zz")
+nnoremap("<C-j>", "<cmd>cnext<CR>zz")
+nnoremap("<C-k>", "<cmd>cprev<CR>zz")
+nnoremap("<leader>j", "<cmd>lnext<CR>zz")
+nnoremap("<leader>k", "<cmd>lprev<CR>zz")
