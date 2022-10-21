@@ -131,7 +131,7 @@ Set_buf_keymaps = function(bufnr)
         bufnr,
         "n",
         "<Tab>",
-        "/\\[\\w*\\](\\..\\w*\\.\\w*.md)/ %<CR>",
+        "//\\[.+]\\(..\\w+.\\w+.md\\)/ %<CR>",
         {
             noremap = true,
             silent = true,
@@ -141,7 +141,7 @@ Set_buf_keymaps = function(bufnr)
         bufnr,
         "n",
         "<S-Tab>",
-        "?\\[\\w*\\](\\..\\w*\\.\\w*.md)/ %<CR>",
+        "?/\\[.+]\\(..\\w+.\\w+.md\\)/ %<CR>",
         {
             noremap = true,
             silent = true,
