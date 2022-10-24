@@ -120,8 +120,48 @@ Set_buf_keymaps = function(bufnr)
     vim.api.nvim_buf_set_keymap(
         bufnr,
         "n",
-        "tt",
+        "T",
         ":lua require(\"void.wiki\").toggle_todo()<CR>",
+        {
+            noremap = true,
+            silent = true,
+            nowait = true,
+        })
+    vim.api.nvim_buf_set_keymap(
+        bufnr,
+        "n",
+        "T",
+        ":lua require(\"void.wiki\").toggle_todo()<CR>",
+        {
+            noremap = true,
+            silent = true,
+            nowait = true,
+        })
+    vim.api.nvim_buf_set_keymap(
+        bufnr,
+        "n",
+        "T",
+        ":lua require(\"void.wiki\").toggle_todo()<CR>",
+        {
+            noremap = true,
+            silent = true,
+            nowait = true,
+        })
+    vim.api.nvim_buf_set_keymap(
+        bufnr,
+        "n",
+        "<Tab>",
+        ":let @/=\"\\\\[.\\\\{-}\\\\](.\\\\{-}.md)\"<CR>n",
+        {
+            noremap = true,
+            silent = true,
+            nowait = true,
+        })
+    vim.api.nvim_buf_set_keymap(
+        bufnr,
+        "n",
+        "<S-Tab>",
+        ":let @/=\"\\\\[.\\\\{-}\\\\](.\\\\{-}.md)\"<CR>N",
         {
             noremap = true,
             silent = true,
