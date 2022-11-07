@@ -1,6 +1,12 @@
 local Path = require("plenary.path")
-local home = require("os").getenv("HOME")
 local nnoremap = require('void.keymap').nnoremap
+local home = ""
+if vim.loop.os_uname().sysname == "Windows_NT"
+then
+    home = require("os").getenv("USERPROFILE")
+else
+    home = require("os").getenv("HOME")
+end
 
 local wiki = {}
 
