@@ -89,14 +89,24 @@ wiki.toggle_todo = function()
     if line:sub(box_start + 2, box_start + 2) == "]" then
         box_end = box_start + 2
     end
+    local todo_options = { " ", "_", "-", "!", "?", "x" }
     local state = line:sub(box_start + 1, box_start + 1)
-    if state == " " then
-        state = "-"
-    elseif state == "-" then
-        state = "x"
-    elseif state == "x" then
-        state = " "
+    for i, v in ipairs(todo_options) do
+        if v == state then
+            if i == table.maxn(todo_options) then
+                i = 0
+            end
+            state = todo_options[i + 1]
+            break
+        end
     end
+    -- if state == " " then
+    --     state = "-"
+    -- elseif state == "-" then
+    --     state = "x"
+    -- elseif state == "x" then
+    --     state = " "
+    -- end
     local newline = line:sub(0, box_start) .. state .. line:sub(box_end, string.len(line))
     vim.api.nvim_set_current_line(newline)
 end
@@ -110,49 +120,49 @@ Set_buf_keymaps = function(bufnr)
         "<CR>",
         ":'<,'>lua require(\"void.wiki\").create_wiki_file()<CR>",
         opts
-        )
+    )
     vim.api.nvim_buf_set_keymap(
         bufnr,
         "n",
         "<CR>",
         ":lua require(\"void.wiki\").open_link()<CR>",
         opts
-        )
+    )
     vim.api.nvim_buf_set_keymap(
         bufnr,
         "n",
         "T",
         ":lua require(\"void.wiki\").toggle_todo()<CR>",
         opts
-        )
+    )
     vim.api.nvim_buf_set_keymap(
         bufnr,
         "n",
         "T",
         ":lua require(\"void.wiki\").toggle_todo()<CR>",
         opts
-        )
+    )
     vim.api.nvim_buf_set_keymap(
         bufnr,
         "n",
         "T",
         ":lua require(\"void.wiki\").toggle_todo()<CR>",
         opts
-        )
+    )
     vim.api.nvim_buf_set_keymap(
         bufnr,
         "n",
         "<Tab>",
         ":let @/=\"\\\\[.\\\\{-}\\\\](.\\\\{-}.md)\"<CR>n",
         opts
-        )
+    )
     vim.api.nvim_buf_set_keymap(
         bufnr,
         "n",
         "<S-Tab>",
         ":let @/=\"\\\\[.\\\\{-}\\\\](.\\\\{-}.md)\"<CR>N",
         opts
-        )
+    )
 end
 -- Open a buffer inside the current window
 Open_buffer = function(bufnr)
