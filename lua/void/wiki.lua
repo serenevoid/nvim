@@ -100,13 +100,6 @@ wiki.toggle_todo = function()
             break
         end
     end
-    -- if state == " " then
-    --     state = "-"
-    -- elseif state == "-" then
-    --     state = "x"
-    -- elseif state == "x" then
-    --     state = " "
-    -- end
     local newline = line:sub(0, box_start) .. state .. line:sub(box_end, string.len(line))
     vim.api.nvim_set_current_line(newline)
 end
