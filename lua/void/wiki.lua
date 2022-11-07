@@ -103,76 +103,56 @@ end
 
 -- Set window specific keymaps
 Set_buf_keymaps = function(bufnr)
+    local opts = { noremap = true, silent = true, nowait = true }
     vim.api.nvim_buf_set_keymap(
         bufnr,
         "v",
         "<CR>",
         ":'<,'>lua require(\"void.wiki\").create_wiki_file()<CR>",
-        {
-            noremap = true,
-            silent = true,
-            nowait = true,
-        })
+        opts
+        )
     vim.api.nvim_buf_set_keymap(
         bufnr,
         "n",
         "<CR>",
         ":lua require(\"void.wiki\").open_link()<CR>",
-        {
-            noremap = true,
-            silent = true,
-            nowait = true,
-        })
+        opts
+        )
     vim.api.nvim_buf_set_keymap(
         bufnr,
         "n",
         "T",
         ":lua require(\"void.wiki\").toggle_todo()<CR>",
-        {
-            noremap = true,
-            silent = true,
-            nowait = true,
-        })
+        opts
+        )
     vim.api.nvim_buf_set_keymap(
         bufnr,
         "n",
         "T",
         ":lua require(\"void.wiki\").toggle_todo()<CR>",
-        {
-            noremap = true,
-            silent = true,
-            nowait = true,
-        })
+        opts
+        )
     vim.api.nvim_buf_set_keymap(
         bufnr,
         "n",
         "T",
         ":lua require(\"void.wiki\").toggle_todo()<CR>",
-        {
-            noremap = true,
-            silent = true,
-            nowait = true,
-        })
+        opts
+        )
     vim.api.nvim_buf_set_keymap(
         bufnr,
         "n",
         "<Tab>",
         ":let @/=\"\\\\[.\\\\{-}\\\\](.\\\\{-}.md)\"<CR>n",
-        {
-            noremap = true,
-            silent = true,
-            nowait = true,
-        })
+        opts
+        )
     vim.api.nvim_buf_set_keymap(
         bufnr,
         "n",
         "<S-Tab>",
         ":let @/=\"\\\\[.\\\\{-}\\\\](.\\\\{-}.md)\"<CR>N",
-        {
-            noremap = true,
-            silent = true,
-            nowait = true,
-        })
+        opts
+        )
 end
 -- Open a buffer inside the current window
 Open_buffer = function(bufnr)
