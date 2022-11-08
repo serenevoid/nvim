@@ -14,7 +14,8 @@ local wiki = {}
 wiki.create_diary_entry = function()
     local sep = Path.path.sep
     local diary_path = home .. sep .. "wiki" .. sep .. "diary"
-    local diary_name = string.format(diary_path .. sep .. "%s.md", os.date "%Y_%m_%d")
+    local diary_name = string.format(diary_path ..
+        sep .. "%s.md", os.date "%Y_%m_%d")
     vim.fn.mkdir(diary_path, "p")
     local bufnr = vim.fn.bufnr(diary_name, true)
     Set_buf_keymaps(bufnr)
@@ -42,7 +43,8 @@ wiki.create_wiki_file = function()
     local name = line[1]:sub(selection_start[3], selection_end[3])
     local filename = name:gsub(" ", "_"):gsub("\\", "") .. ".md"
     local sep = Path.path.sep
-    local new_mkdn = '[' .. name .. "](." .. sep .. "journal" .. sep .. filename .. ")"
+    local new_mkdn = '[' .. name .. "](." .. sep ..
+        "journal" .. sep .. filename .. ")"
     local nline = line[1]:sub(0, selection_start[3] - 1) ..
         new_mkdn .. line[1]:sub(selection_end[3] + 1, string.len(line[1]))
     vim.api.nvim_set_current_line(nline)
@@ -100,62 +102,25 @@ wiki.toggle_todo = function()
             break
         end
     end
-    local newline = line:sub(0, box_start) .. state .. line:sub(box_end, string.len(line))
+    local newline = line:sub(0, box_start) ..
+        state .. line:sub(box_end, string.len(line))
     vim.api.nvim_set_current_line(newline)
 end
 
 -- Set window specific keymaps
 Set_buf_keymaps = function(bufnr)
     local opts = { noremap = true, silent = true, nowait = true }
-    vim.api.nvim_buf_set_keymap(
-        bufnr,
-        "v",
-        "<CR>",
-        ":'<,'>lua require(\"void.wiki\").create_wiki_file()<CR>",
-        opts
-    )
-    vim.api.nvim_buf_set_keymap(
-        bufnr,
-        "n",
-        "<CR>",
-        ":lua require(\"void.wiki\").open_link()<CR>",
-        opts
-    )
-    vim.api.nvim_buf_set_keymap(
-        bufnr,
-        "n",
-        "T",
-        ":lua require(\"void.wiki\").toggle_todo()<CR>",
-        opts
-    )
-    vim.api.nvim_buf_set_keymap(
-        bufnr,
-        "n",
-        "T",
-        ":lua require(\"void.wiki\").toggle_todo()<CR>",
-        opts
-    )
-    vim.api.nvim_buf_set_keymap(
-        bufnr,
-        "n",
-        "T",
-        ":lua require(\"void.wiki\").toggle_todo()<CR>",
-        opts
-    )
-    vim.api.nvim_buf_set_keymap(
-        bufnr,
-        "n",
-        "<Tab>",
-        ":let @/=\"\\\\[.\\\\{-}\\\\](.\\\\{-}.md)\"<CR>n",
-        opts
-    )
-    vim.api.nvim_buf_set_keymap(
-        bufnr,
-        "n",
-        "<S-Tab>",
-        ":let @/=\"\\\\[.\\\\{-}\\\\](.\\\\{-}.md)\"<CR>N",
-        opts
-    )
+    local bufvmap = function(lhs, rhs)
+        vim.api.nvim_buf_set_keymap(bufnr, "v", lhs, rhs, opts)
+    end
+    local bufnmap = function(lhs, rhs)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", lhs, rhs, opts)
+    end
+    bufvmap("<CR>", ":'<,'>lua require(\"void.wiki\").create_wiki_file()<CR>")
+    bufnmap("<CR>", ":lua require(\"void.wiki\").open_link()<CR>")
+    bufnmap("T",":lua require(\"void.wiki\").toggle_todo()<CR>")
+    bufnmap("<Tab>",":let @/=\"\\\\[.\\\\{-}\\\\](.\\\\{-}.md)\"<CR>n")
+    bufnmap("<S-Tab>", ":let @/=\"\\\\[.\\\\{-}\\\\](.\\\\{-}.md)\"<CR>N")
 end
 -- Open a buffer inside the current window
 Open_buffer = function(bufnr)
