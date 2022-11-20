@@ -122,6 +122,7 @@ Set_buf_keymaps = function(bufnr)
     bufnmap("<Tab>",":let @/=\"\\\\[.\\\\{-}\\\\](.\\\\{-}.md)\"<CR>n")
     bufnmap("<S-Tab>", ":let @/=\"\\\\[.\\\\{-}\\\\](.\\\\{-}.md)\"<CR>N")
 end
+
 -- Open a buffer inside the current window
 Open_buffer = function(bufnr)
     vim.api.nvim_win_set_buf(0, bufnr)
