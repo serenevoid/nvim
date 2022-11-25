@@ -97,7 +97,7 @@ local config = function(_config)
             inoremap("<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
             nnoremap("<Leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
             nnoremap("<Leader>lca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-            nnoremap("<Leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+            nnoremap("<Leader>lf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
         end,
     }, _config or {})
 end
