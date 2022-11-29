@@ -31,3 +31,9 @@ vim.opt.colorcolumn = "80"
 vim.g.mapleader = " "
 vim.g.splitright = true
 vim.g.splitbelow = true
+
+-- Add bash as default shell on Windows
+if vim.loop.os_uname().sysname == "Windows_NT"
+then
+    vim.o.shell = "bash.exe"
+end
