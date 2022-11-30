@@ -3,8 +3,7 @@ return require('packer').startup(function()
     -- packer can manage itself
     use('wbthomason/packer.nvim')
 
-    -- Neogit
-    use('TimUntersberger/neogit')
+    -- Git
     use('lewis6991/gitsigns.nvim')
 
     -- Common Functions library
