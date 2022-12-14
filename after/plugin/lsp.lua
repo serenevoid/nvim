@@ -143,6 +143,9 @@ require("lspconfig").sumneko_lua.setup(config({
 -- HTML LSP
 lspconfig.html.setup(config({}))
 
+-- HTML LSP
+lspconfig.cssls.setup(config({}))
+
 -- Typescript LSP
 lspconfig.tsserver.setup(config({}))
 
