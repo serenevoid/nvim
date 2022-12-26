@@ -47,10 +47,10 @@ local jsdoc = function(args)
 		end
 	end
 
-    if string.find(args[2][1], "return") then
+    if string.find(args[2][1], ": ") then
         vim.list_extend(
             nodes,
-            { t({ " * @return " }), i(insert), t({ "", "" }) }
+            { t({ " * @return {" .. string.gsub(args[2][1], ": ", "") .. "}" }), t({ "", "" }) }
         )
         param_nodes.ret = i(insert)
         insert = insert + 1
@@ -82,16 +82,9 @@ ls.add_snippets(nil, {
             t("("),
             i(3),
             t(")"),
+            i(4),
             t({ " {", "\t" }),
             i(0),
-            t({ "", "" }),
-            c(4, {
-                t(""),
-                sn(nil, {
-                    t({ "\treturn " }),
-                    i(1),
-                }),
-            }),
             t({ "", "}" }),
         }),
     },
