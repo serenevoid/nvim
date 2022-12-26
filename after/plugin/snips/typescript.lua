@@ -20,31 +20,35 @@ local jsdoc = function(args)
 	param_nodes.descr = nodes[2]
 
 	-- At least one param.
-	if string.find(args[2][1], ", ") then
+	if string.find(args[1][1], ", ") then
 		vim.list_extend(nodes, { t({ " * ", "" }) })
 	end
 
 	local insert = 2
-	for _, arg in ipairs(vim.split(args[1][1], ", ", true)) do
-		-- Get actual name parameter.
-		local arg_name = vim.split(arg, ": ", true)[1]
-		local arg_type = vim.split(arg, ": ", true)[2]
-		if arg_name then
-            if arg_type then
-                vim.list_extend(
-                    nodes,
-                    { t({ " * @param {" .. arg_type .. "} " .. arg_name .. " - "}), i(insert), t({ "", "" }) }
-                )
-            else
-                vim.list_extend(
-                    nodes,
-                    { t({ " * @param {any} " .. arg_name .. " - "}), i(insert), t({ "", "" }) }
-                )
-            end
-			param_nodes["arg" .. arg_name] = i(insert)
+    if args[1][1] ~= "" then
+        for _, arg in ipairs(vim.split(args[1][1], ", ", true)) do
+            -- Get actual name parameter.
+            local arg_name = vim.split(arg, ": ", true)[1]
+            local arg_type = vim.split(arg, ": ", true)[2]
+            if arg_name then
+                if arg_type then
+                    vim.list_extend(
+                        nodes,
+                        { t({ " * @param {" .. arg_type .. "} " ..
+                        arg_name .. " - "}), i(insert), t({ "", "" }) }
+                    )
+                else
+                    vim.list_extend(
+                        nodes,
+                        { t({ " * @param {any} " .. arg_name ..
+                        " - "}), i(insert), t({ "", "" }) }
+                    )
+                end
+                param_nodes["arg" .. arg_name] = i(insert)
 
-			insert = insert + 1
-		end
+                insert = insert + 1
+            end
+        end
 	end
 
     if args[2][1] then
