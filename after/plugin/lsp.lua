@@ -142,7 +142,7 @@ require("lspconfig").sumneko_lua.setup(config({
 -- HTML LSP
 lspconfig.html.setup(config({}))
 
--- HTML LSP
+-- CSS LSP
 lspconfig.cssls.setup(config({}))
 
 -- Typescript LSP
@@ -153,3 +153,6 @@ lspconfig.pyright.setup(config({}))
 
 -- Rust LSP
 lspconfig.rust_analyzer.setup(config({}))
+
+-- C, C++ LSP
+lspconfig.clangd.setup(config({}))

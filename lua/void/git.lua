@@ -4,7 +4,7 @@ local vnoremap = require('void.keymap').vnoremap
 local silent = { silent = true }
 
 gitsigns.setup({
-    on_attach = function(bufnr)
+    on_attach = function(_)
         local gs = package.loaded.gitsigns
 
         -- Navigation

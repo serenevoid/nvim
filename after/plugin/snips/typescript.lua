@@ -5,6 +5,7 @@ local t = ls.text_node
 local i = ls.insert_node
 local c = ls.choice_node
 local d = ls.dynamic_node
+local f = ls.function_node
 
 local jsdoc = function(args)
 	local nodes = {
@@ -70,6 +71,12 @@ local jsdoc = function(args)
 	return snip
 end
 
+local same = function(index)
+    return f(function(args)
+        return args[1]
+    end, { index })
+end
+
 -- Snippets
 ls.add_snippets(nil, {
     typescript = {
@@ -92,6 +99,15 @@ ls.add_snippets(nil, {
             t({ " {", "\t" }),
             i(0),
             t({ "", "}" }),
+        }),
+        s({
+            trig = "cl",
+            name = "Console Log",
+            dscr = "Console log method"
+        },{
+            t({ "console.log(" }),
+            i(0),
+            t({ ");" }),
         }),
     },
 })
