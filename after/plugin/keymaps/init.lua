@@ -34,3 +34,6 @@ nnoremap("<C-j>", "<cmd>cnext<CR>zz")
 nnoremap("<C-k>", "<cmd>cprev<CR>zz")
 nnoremap("<leader>j", "<cmd>lnext<CR>zz")
 nnoremap("<leader>k", "<cmd>lprev<CR>zz")
+-- Open terminal on new tab
+nnoremap("<leader>tt", "<cmd>tabe<CR><cmd>term bash<CR>A")
+nnoremap("<leader>gg", "<cmd>tabe<CR><cmd>term<CR>Atig<CR>")
