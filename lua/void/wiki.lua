@@ -29,7 +29,6 @@ wiki.open_index = function()
     local index_path = home .. sep .. "wiki" .. sep .. "index.md"
     local journal_dir = home .. sep .. "wiki" .. sep .. "journal"
     vim.fn.mkdir(journal_dir, "p")
-    vim.api.nvim_set_current_dir(home .. sep .. "wiki")
     local bufnr = vim.fn.bufnr(index_path, true)
     Set_buf_keymaps(bufnr)
     Open_buffer(bufnr)
