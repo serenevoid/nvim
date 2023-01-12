@@ -1,11 +1,19 @@
 local Remap = require("void.keymap")
 local nnoremap = Remap.nnoremap
-local inoremap = Remap.inoremap
 
 local lspkind = require("lspkind")
-local autopairs = require("nvim-autopairs")
 require('Comment').setup()
-autopairs.setup({})
+require('fidget').setup({
+    text = {
+        spinner = "moon",
+    },
+    align = {
+        bottom = true,
+    },
+    window = {
+        relative = "editor",
+    },
+})
 
 -- Setup nvim-cmp.
 local cmp = require("cmp")
@@ -41,7 +49,7 @@ cmp.setup({
             with_text = true,
             menu = {
                 buffer = "[buf]",
-                nvim_lsp = "[LSP]",
+                nvim_lsp = "[lsp]",
                 nvim_lua = "[api]",
                 path = "[path]",
                 luasnip = "[snip]",
