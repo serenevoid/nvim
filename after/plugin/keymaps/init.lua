@@ -23,8 +23,6 @@ nnoremap("<leader>Y", "\"+Y")
 nnoremap("<leader>d", "\"_d")
 vnoremap("<leader>d", "\"_d")
 
-vnoremap("<leader>d", "\"_d")
-
 -- This is going to get me cancelled
 inoremap("<C-c>", "<Esc>")
 
@@ -34,6 +32,7 @@ nnoremap("<C-j>", "<cmd>cnext<CR>zz")
 nnoremap("<C-k>", "<cmd>cprev<CR>zz")
 nnoremap("<leader>j", "<cmd>lnext<CR>zz")
 nnoremap("<leader>k", "<cmd>lprev<CR>zz")
+
 -- Open terminal on new tab
 nnoremap("<leader>tt", "<cmd>tabe<CR><cmd>term bash<CR>A")
 nnoremap("<leader>gg", "<cmd>tabe<CR><cmd>term<CR>Atig<CR>")
