@@ -1,5 +1,6 @@
 local Remap = require("void.keymap")
 local nnoremap = Remap.nnoremap
+local inoremap = Remap.inoremap
 
 local lspkind = require("lspkind")
 require('Comment').setup()
@@ -30,11 +31,12 @@ cmp.setup({
         -- documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
-        -- ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-        -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-j>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-k>'] = cmp.mapping.scroll_docs(4),
         ['<C-,>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
         { name = 'nvim_lua' },
@@ -102,6 +104,7 @@ local config = function(_config)
             nnoremap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
             nnoremap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
             nnoremap("gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+            inoremap("<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
             nnoremap("<Leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
             nnoremap("<Leader>lca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
             nnoremap("<Leader>lf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
