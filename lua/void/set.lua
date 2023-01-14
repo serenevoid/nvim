@@ -29,8 +29,8 @@ vim.opt.shortmess:append("c")
 
 vim.opt.colorcolumn = "80"
 vim.g.mapleader = " "
-vim.g.sb = true
-vim.g.spr = true
+vim.o.sb = true
+vim.o.spr = true
 
 -- netrw settings
 vim.g.netrw_browse_split = 0
