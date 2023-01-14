@@ -160,7 +160,9 @@ lspconfig.tsserver.setup(config({}))
 lspconfig.pyright.setup(config({}))
 
 -- Rust LSP
-lspconfig.rust_analyzer.setup(config({}))
+lspconfig.rust_analyzer.setup(config({
+    cmd = { "rustup", "run", "stable", "rust-analyzer" }
+}))
 
 -- C, C++ LSP
 lspconfig.clangd.setup(config({}))
