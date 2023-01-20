@@ -38,3 +38,9 @@ nnoremap("<leader>k", "<cmd>lprev<CR>zz")
 nnoremap("<leader>tt", "<cmd>tabe<CR><cmd>setlocal nonu nornu<CR><cmd>term bash<CR>A")
 nnoremap("<leader>gg", "<cmd>tabe<CR><cmd>setlocal nonu nornu<CR><cmd>term bash<CR>Atig && exit<CR>")
 tnoremap("<leader><Esc>", "<C-\\><C-n>")
+
+-- Resize window
+nnoremap("<A-j>", "<cmd>winc -<CR>")
+nnoremap("<A-k>", "<cmd>winc +<CR>")
+nnoremap("<A-h>", "<cmd>5winc <<CR>")
+nnoremap("<A-l>", "<cmd>5winc ><CR>")
