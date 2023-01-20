@@ -2,6 +2,7 @@ local Remap = require("void.keymap")
 local nnoremap = Remap.nnoremap
 local vnoremap = Remap.vnoremap
 local inoremap = Remap.inoremap
+local tnoremap = Remap.tnoremap
 
 nnoremap("<leader>pv", "<cmd>Ex<CR>")
 
@@ -35,4 +36,5 @@ nnoremap("<leader>k", "<cmd>lprev<CR>zz")
 
 -- Open terminal on new tab
 nnoremap("<leader>tt", "<cmd>tabe<CR><cmd>setlocal nonu nornu<CR><cmd>term bash<CR>A")
-nnoremap("<leader>gg", "<cmd>tabe<CR><cmd>setlocal nonu nornu<CR><cmd>term<CR>Atig && exit<CR>")
+nnoremap("<leader>gg", "<cmd>tabe<CR><cmd>setlocal nonu nornu<CR><cmd>term bash<CR>Atig && exit<CR>")
+tnoremap("<leader><Esc>", "<C-\\><C-n>")

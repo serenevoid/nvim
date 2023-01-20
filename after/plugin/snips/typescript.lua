@@ -82,8 +82,8 @@ ls.add_snippets(nil, {
     typescript = {
         s({
             trig = "fn",
-            name = "JSDOC function",
-            dscr = "JSDOC function template",
+            name = "logger",
+            dscr = "Console log function",
         }, {
             d(5, jsdoc, { 3, 4 }),
             t({ "", "" }),

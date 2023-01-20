@@ -17,5 +17,6 @@ M.vnoremap = bind("v")
 M.xnoremap = bind("x")
 M.inoremap = bind("i")
 M.snoremap = bind("s")
+M.tnoremap = bind("t")
 
 return M
