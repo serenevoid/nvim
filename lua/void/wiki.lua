@@ -66,8 +66,6 @@ Set_buf_keymaps = function(bufnr)
     end
     bufvmap("<CR>", ":'<,'>lua require(\"void.wiki\").create_wiki_file()<CR>")
     bufnmap("<CR>", ":lua require(\"void.wiki\").open_link()<CR>")
-    bufnmap("<Tab>", ":let @/=\"\\\\[.\\\\{-}\\\\]\"<CR>nl")
-    bufnmap("<S-Tab>", ":let @/=\"\\\\[.\\\\{-}\\\\]\"<CR>Nl")
 end
 
 -- Open a buffer inside the current window
