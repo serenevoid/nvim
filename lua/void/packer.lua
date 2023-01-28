@@ -1,14 +1,14 @@
-return require('packer').startup(function()
+return require('packer').startup(function(use)
 
     -- packer can manage itself
     use('wbthomason/packer.nvim')
 
-    -- Git
-    use('lewis6991/gitsigns.nvim')
-
     -- Common Functions library
     use('nvim-lua/plenary.nvim')
     use("nvim-lua/popup.nvim")
+
+    -- Git
+    use('lewis6991/gitsigns.nvim')
 
     -- LSP stuff
     use("neovim/nvim-lspconfig")
