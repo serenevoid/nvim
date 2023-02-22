@@ -13,7 +13,11 @@ local wiki = {}
 -- Open the Index.md file of wiki and change working directory
 wiki.open_index = function()
     local sep = Path.path.sep
-    vim.fn.mkdir(home .. sep .. "wiki", "p")
+    local wiki_dir = home .. sep .. "wiki"
+    local path = Path:new(wiki_dir)
+    if not path:exists() then
+        path:mkdir()
+    end
     local index_path = home .. sep .. "wiki" .. sep .. "index.md"
     local bufnr = vim.fn.bufnr(index_path, true)
     Set_buf_keymaps(bufnr)
@@ -33,6 +37,10 @@ wiki.create_wiki_file = function()
         new_mkdn .. line[1]:sub(selection_end[3] + 1, string.len(line[1]))
     vim.api.nvim_set_current_line(nline)
     local journal_dir = home .. sep .. "wiki" .. sep .. "journal"
+    local path = Path:new(journal_dir)
+    if not path:exists() then
+        path:mkdir()
+    end
     local bufnr = vim.fn.bufnr(journal_dir .. sep .. filename, true)
     Set_buf_keymaps(bufnr)
     Open_buffer(bufnr)
@@ -47,12 +55,48 @@ wiki.open_link = function()
         filename = filename:gsub(" ", "_")
         local sep = Path.path.sep
         local journal_dir = home .. sep .. "wiki" .. sep .. "journal"
-        local bufnr = vim.fn.bufnr(journal_dir .. sep .. filename, true)
+        local bufnr = vim.fn.bufnr(journal_dir .. sep .. filename .. ".md", true)
         if bufnr ~= -1 then
             Set_buf_keymaps(bufnr)
             Open_buffer(bufnr)
         end
     end
+end
+
+-- Toggle check box
+wiki.toggle_todo = function()
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local line = vim.fn.getline(cursor[1])
+    local box_start = 0
+    local box_end = 0
+    for i = 0, string.len(line) - 1, 1 do
+        local char = line:sub(i, i)
+        if char == "[" then
+            box_start = i
+            break
+        end
+        if i == 100 then
+            error("Limit exceeded", 1)
+            break
+        end
+    end
+    if line:sub(box_start + 2, box_start + 2) == "]" then
+        box_end = box_start + 2
+    end
+    local todo_options = { " ", "x" }
+    local state = line:sub(box_start + 1, box_start + 1)
+    for i, v in ipairs(todo_options) do
+        if v == state then
+            if i == table.maxn(todo_options) then
+                i = 0
+            end
+            state = todo_options[i + 1]
+            break
+        end
+    end
+    local newline = line:sub(0, box_start) ..
+        state .. line:sub(box_end, string.len(line))
+    vim.api.nvim_set_current_line(newline)
 end
 
 -- Set window specific keymaps
@@ -64,8 +108,12 @@ Set_buf_keymaps = function(bufnr)
     local bufnmap = function(lhs, rhs)
         vim.api.nvim_buf_set_keymap(bufnr, "n", lhs, rhs, opts)
     end
+    vim.wo.conceallevel = 2
     bufvmap("<CR>", ":'<,'>lua require(\"void.wiki\").create_wiki_file()<CR>")
     bufnmap("<CR>", ":lua require(\"void.wiki\").open_link()<CR>")
+    bufnmap("<Tab>", ":let @/=\"\\\\[.\\\\{-}\\\\]\"<CR>nl")
+    bufnmap("<S-Tab>", ":let @/=\"\\\\[.\\\\{-}\\\\]\"<CR>Nl")
+    bufnmap("<Leader>x",":lua require(\"void.wiki\").toggle_todo()<CR>")
 end
 
 -- Open a buffer inside the current window
