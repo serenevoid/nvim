@@ -126,7 +126,7 @@ lspconfig.gopls.setup(config({
 }))
 
 -- Lua LSP
-require("lspconfig").sumneko_lua.setup(config({
+require("lspconfig").lua_ls.setup(config({
     settings = {
         Lua = {
             runtime = {
