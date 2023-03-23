@@ -16,9 +16,11 @@ require('fidget').setup({
     },
 })
 
+-- Setup Autopairs
+require("nvim-autopairs").setup({})
+
 -- Setup nvim-cmp.
 local cmp = require("cmp")
-
 cmp.setup({
     snippet = {
         -- REQUIRED - you must specify a snippet engine
@@ -75,16 +77,6 @@ cmp.setup.cmdline('/', {
     sources = {
         { name = 'buffer' }
     }
-})
-
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-        { name = 'path' }
-    }, {
-        { name = 'cmdline' }
-    })
 })
 
 local lspconfig = require("lspconfig")
@@ -156,6 +148,9 @@ lspconfig.html.setup(config({}))
 -- CSS LSP
 lspconfig.cssls.setup(config({}))
 
+-- Tailwind CSS LSP
+lspconfig.tailwindcss.setup(config({}))
+
 -- Typescript LSP
 lspconfig.tsserver.setup(config({}))
 
@@ -166,6 +161,3 @@ lspconfig.pyright.setup(config({}))
 lspconfig.rust_analyzer.setup(config({
     cmd = { "rustup", "run", "stable", "rust-analyzer" }
 }))
-
--- C, C++ LSP
-lspconfig.clangd.setup(config({}))
