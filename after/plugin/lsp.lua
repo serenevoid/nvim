@@ -161,3 +161,6 @@ lspconfig.pyright.setup(config({}))
 lspconfig.rust_analyzer.setup(config({
     cmd = { "rustup", "run", "stable", "rust-analyzer" }
 }))
+
+-- C, C++ LSP
+lspconfig.clangd.setup(config({}))
