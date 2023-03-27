@@ -41,6 +41,7 @@ wiki.create_wiki_file = function()
     local nline = line[1]:sub(0, selection_start[3] - 1) ..
         new_mkdn .. line[1]:sub(selection_end[3] + 1, string.len(line[1]))
     vim.api.nvim_set_current_line(nline)
+    local journal_dir = home .. sep .. "wiki" .. sep .. "journal"
     local bufnr = vim.fn.bufnr(journal_dir .. sep .. filename, true)
     Set_buf_keymaps(bufnr)
     Open_buffer(bufnr)
