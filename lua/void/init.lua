@@ -1,5 +1,5 @@
-require("void.globals")
-require("void.set")
-require("void.packer")
 require("void.git")
+require("void.globals")
+require("void.packer")
+require("void.set")
 require("void.statusline")
