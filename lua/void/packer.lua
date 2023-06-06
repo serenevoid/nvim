@@ -38,7 +38,7 @@ return require('packer').startup(function(use)
 
     -- Helpers
     use('numToStr/Comment.nvim')
-    use('windwp/nvim-autopairs')
+    use('m4xshen/autoclose.nvim')
 
     -- Telescope
     use('nvim-telescope/telescope.nvim')
