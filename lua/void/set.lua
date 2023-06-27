@@ -16,6 +16,7 @@ vim.opt.termguicolors = true
 vim.opt.scrolloff = 4
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
+vim.wo.conceallevel = 2
 
 -- Give more space for displaying messages.
 vim.opt.cmdheight = 1
