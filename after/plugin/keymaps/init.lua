@@ -34,3 +34,6 @@ nnoremap("<A-j>", "<cmd>winc -<CR>")
 nnoremap("<A-k>", "<cmd>winc +<CR>")
 nnoremap("<A-h>", "<cmd>5winc <<CR>")
 nnoremap("<A-l>", "<cmd>5winc ><CR>")
+
+-- Term and Git
+nnoremap("<leader>gg", "<cmd>split term://tig<CR>i")
