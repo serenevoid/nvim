@@ -19,7 +19,7 @@ wiki.open_index = function()
         path:mkdir()
     end
     local journal_dir = home .. sep .. "wiki" .. sep .. "journal"
-    local path = Path:new(journal_dir)
+    path = Path:new(journal_dir)
     if not path:exists() then
         path:mkdir()
     end
