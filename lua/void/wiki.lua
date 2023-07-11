@@ -3,9 +3,9 @@ local nnoremap = require('void.keymap').nnoremap
 local home = ""
 if vim.loop.os_uname().sysname == "Windows_NT"
 then
-    home = require("os").getenv("USERPROFILE")
+    home = require("os").getenv("USERPROFILE") or ""
 else
-    home = require("os").getenv("HOME")
+    home = require("os").getenv("HOME") or ""
 end
 
 local wiki = {}
