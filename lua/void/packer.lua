@@ -53,4 +53,6 @@ return require('packer').startup(function(use)
     use('folke/tokyonight.nvim')
     use('kyazdani42/nvim-web-devicons')
 
+    -- Wiki
+    use('$HOME/dev/projects/kiwi.nvim')
 end)
