@@ -1,6 +1,7 @@
 local Remap = require("void.keymap")
 local nnoremap = Remap.nnoremap
+local kiwi = require("kiwi")
 
--- Telescope keymaps
-nnoremap("<leader>ww", ":lua require(\"kiwi\").open_wiki_index()<CR>")
-nnoremap("<leader>wd", ":lua require(\"kiwi\").open_diary_index()<CR>")
+nnoremap("<leader>ww", kiwi.open_wiki_index)
+nnoremap("<leader>wd", kiwi.open_diary_index)
+nnoremap("<leader>wn", kiwi.open_diary_new)
