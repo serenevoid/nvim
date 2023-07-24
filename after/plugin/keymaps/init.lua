@@ -27,7 +27,7 @@ nnoremap("<C-k>", "<cmd>cprev<CR>zz")
 nnoremap("<leader>j", "<cmd>lnext<CR>zz")
 nnoremap("<leader>k", "<cmd>lprev<CR>zz")
 
-nnoremap("<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+nnoremap("<leader>x<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- Resize window
 nnoremap("<A-j>", "<cmd>winc -<CR>")
