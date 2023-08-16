@@ -5,7 +5,6 @@ vim.opt.errorbells = false
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.wrap = false
 vim.opt.swapfile = false
@@ -14,11 +13,12 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.termguicolors = true
 vim.opt.scrolloff = 4
-vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
-vim.wo.conceallevel = 2
+vim.opt.signcolumn = 'yes'
+vim.opt.isfname:append('@-@')
 vim.opt.list = true
-vim.opt.listchars:append("eol:󰌑")
+vim.opt.listchars:append('eol:󰌑')
+vim.opt.completeopt = "menu,menuone,noselect"
+vim.opt.laststatus = 0
 
 -- Give more space for displaying messages.
 vim.opt.cmdheight = 1
@@ -28,10 +28,11 @@ vim.opt.cmdheight = 1
 vim.opt.updatetime = 50
 
 -- Don't pass messages to |ins-completion-menu|.
-vim.opt.shortmess:append("c")
+vim.opt.shortmess:append('c')
 
-vim.opt.colorcolumn = "80"
-vim.g.mapleader = " "
+vim.opt.colorcolumn = '80'
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 vim.o.sb = true
 vim.o.spr = true
 
@@ -40,17 +41,14 @@ vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_use_errorwindow = 0
 
-local augroup = vim.api.nvim_create_augroup
-local autocmd = vim.api.nvim_create_autocmd
-local yank_group = augroup('HighlightYank', {})
-
-autocmd('TextYankPost', {
-  group = yank_group,
-  pattern = '*',
+-- highlight yanked text
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
     vim.highlight.on_yank({
-      higroup = 'IncSearch',
-      timeout = 40,
-    })
+			timeout = 40
+		})
   end,
+  group = highlight_group,
+  pattern = '*',
 })
