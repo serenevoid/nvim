@@ -1,5 +1,3 @@
-local Job = require("plenary.job")
-
 local function gen_section(items)
     local out = ""
     local bracket_left = "["
@@ -123,7 +121,7 @@ local function setup_diagnostics()
 
 end
 
-function status_line()
+function Status_line()
     local mode = vim.fn.mode()
     local mg = get_mode_group(mode)
 
@@ -141,5 +139,5 @@ function status_line()
     })
 end
 
-vim.o.statusline = "%!luaeval('status_line()')"
+vim.o.statusline = "%!luaeval('Status_line()')"
 vim.o.laststatus = 3
