@@ -19,6 +19,12 @@ vim.opt.list = true
 vim.opt.listchars:append('eol:󰌑')
 vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.laststatus = 0
+if vim.loop.os_uname().sysname == "Windows_NT"
+then
+	vim.opt.shell = "sh.exe"
+	vim.opt.shcf = "-c"
+end
+
 
 -- Give more space for displaying messages.
 vim.opt.cmdheight = 1
