@@ -13,6 +13,7 @@ vim.opt.backup = false
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.termguicolors = true
+vim.o.guifont ="JetBrainsMonoNL Nerd Font Mono:h12"
 vim.opt.scrolloff = 4
 vim.opt.signcolumn = 'yes'
 vim.opt.isfname:append('@-@')
