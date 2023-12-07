@@ -21,6 +21,7 @@ vim.opt.list = true
 vim.opt.listchars:append('eol:󰌑')
 vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.laststatus = 0
+vim.opt.mouse = ""
 
 -- Give more space for displaying messages.
 vim.opt.cmdheight = 1
