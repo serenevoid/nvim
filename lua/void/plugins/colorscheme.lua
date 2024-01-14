@@ -1,14 +1,19 @@
+local function color(colorscheme)
+  colorscheme = colorscheme or "rose-pine"
+  vim.cmd.colorscheme(colorscheme)
+  vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+end
+
 return {
-  {
-    'kyazdani42/nvim-web-devicons',
-    lazy = true
-  },
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {
-      transparent = true
-    }
+  { "nvim-tree/nvim-web-devicons" },
+  { "rose-pine/neovim",
+    name = "rose-pine",
+    config = function ()
+      require("rose-pine").setup({
+        disable_background = true
+      })
+      color()
+    end
   }
 }
