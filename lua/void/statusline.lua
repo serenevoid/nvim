@@ -97,11 +97,9 @@ local function get_lsp_diagnostics(bufnr)
     info = vim.diagnostic.severity.INFO,
     hints = vim.diagnostic.severity.HINT,
   }
-
   for k, level in pairs(levels) do
     result[k] = #vim.diagnostic.get(bufnr, { severity = level })
   end
-
   return result
 end
 
@@ -109,7 +107,6 @@ local function setup_diagnostics()
   local diagnostics = get_lsp_diagnostics()
   local errors = diagnostics.errors
   local warnings = diagnostics.warnings
-
   if errors == 0 and warnings == 0 then
     return ""
   else
@@ -118,7 +115,15 @@ local function setup_diagnostics()
       process_diagnostics("  ", warnings),
     }
   end
+end
 
+local function get_branch()
+  local success, branch = pcall(vim.fn.systemlist, "git rev-parse --abbrev-ref HEAD 2>/dev/null")
+  if success and #branch > 0 then
+    return branch[1]
+  else
+    return nil
+  end
 end
 
 function Status_line()
@@ -127,17 +132,14 @@ function Status_line()
 
   return table.concat({
     gen_section({ get_mode_group_display_name(mg) }),
-    gen_section({ vim.b.gitsigns_head or "" }),
+    gen_section({ (" " .. get_branch()) or "" }),
     "%=",
     gen_section({ is_readonly(), get_file_icon(), "%t", is_modified() }),
     "%=",
     gen_section({ setup_diagnostics() }),
-    gen_section({ vim.b.gitsigns_status or "" }),
     gen_section({ vim.bo.filetype, }),
-    gen_section({ "%p%%" }),
     gen_section({ "%l:%c" }),
   })
 end
-
 vim.o.statusline = "%!luaeval('Status_line()')"
 vim.o.laststatus = 3
