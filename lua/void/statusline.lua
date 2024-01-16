@@ -120,7 +120,7 @@ end
 local function get_branch()
   local success, branch = pcall(vim.fn.systemlist, "git rev-parse --abbrev-ref HEAD 2>/dev/null")
   if success and #branch > 0 then
-    return branch[1]
+    return " " .. branch[1]
   else
     return nil
   end
@@ -132,7 +132,7 @@ function Status_line()
 
   return table.concat({
     gen_section({ get_mode_group_display_name(mg) }),
-    gen_section({ (" " .. get_branch()) or "" }),
+    gen_section({ get_branch() or "" }),
     "%=",
     gen_section({ is_readonly(), get_file_icon(), "%t", is_modified() }),
     "%=",
