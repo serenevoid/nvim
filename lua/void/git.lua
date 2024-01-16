@@ -1,4 +1,6 @@
-function Blame_line()
+local M = {}
+
+function M.blame_line()
   local bufnr = vim.api.nvim_get_current_buf()
   local filename = vim.api.nvim_buf_get_name(bufnr)
   local row = vim.api.nvim_win_get_cursor(0)[1]
@@ -14,4 +16,28 @@ function Blame_line()
   end
 end
 
-vim.api.nvim_create_user_command("GitBlame", ":lua Blame_line()", {})
+function M.get_branch()
+  if M.branch ~= nil then
+    return M.branch
+  end
+  local shell = vim.api.nvim_eval('&shell')
+  local command = ''
+  if shell == 'cmd.exe' then
+    command = 'sh -c \"git branch --show 2>/dev/null\"'
+  else
+    command = 'git branch --show 2>/dev/null'
+  end
+  local success, branch = pcall(vim.fn.systemlist, command)
+  if success and #branch > 0 then
+    M.branch = " " .. branch[1]
+    return M.branch
+  else
+    M.branch = ""
+    return nil
+  end
+end
+
+
+vim.api.nvim_create_user_command("GitBlame", ":lua require('void.git').blame_line()", {})
+
+return M

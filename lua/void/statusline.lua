@@ -1,3 +1,5 @@
+local git = require('void.git')
+
 local function gen_section(items)
   local out = ""
   local bracket_left = "["
@@ -117,22 +119,13 @@ local function setup_diagnostics()
   end
 end
 
-local function get_branch()
-  local success, branch = pcall(vim.fn.systemlist, "git rev-parse --abbrev-ref HEAD 2>/dev/null")
-  if success and #branch > 0 then
-    return " " .. branch[1]
-  else
-    return nil
-  end
-end
-
 function Status_line()
   local mode = vim.fn.mode()
   local mg = get_mode_group(mode)
 
   return table.concat({
     gen_section({ get_mode_group_display_name(mg) }),
-    gen_section({ get_branch() or "" }),
+    gen_section({ git.get_branch() or "" }),
     "%=",
     gen_section({ is_readonly(), get_file_icon(), "%t", is_modified() }),
     "%=",
