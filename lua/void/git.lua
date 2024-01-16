@@ -8,7 +8,7 @@ function M.blame_line()
   if blame_info[2] ~= nil then
     local hash = string.sub(blame_info[1], 1, 8)
     local author_name = string.sub(blame_info[2], 8)
-    local author_date = os.date('%Y %b %d', string.sub(blame_info[4], 12))
+    local author_date = os.date('%Y %b %d', tonumber(string.sub(blame_info[4], 12)))
     local summary = string.sub(blame_info[10], 9)
     print(hash .. " - " .. author_name .. " - " .. author_date .. " - " ..  summary)
   else

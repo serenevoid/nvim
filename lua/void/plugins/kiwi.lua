@@ -1,6 +1,6 @@
 return ({
   {
-    dir = '$HOME/dev/projects/kiwi.nvim',
+    dir = '$HOME/dev/kiwi.nvim',
     dependencies = {
       "nvim-lua/plenary.nvim"
     },
