@@ -20,20 +20,14 @@ function M.get_branch()
   if M.branch ~= nil then
     return M.branch
   end
-  local shell = vim.api.nvim_eval('&shell')
-  local command = ''
-  if shell == 'cmd.exe' then
-    command = 'sh -c \"git branch --show 2>/dev/null\"'
-  else
-    command = 'git branch --show 2>/dev/null'
-  end
-  local success, branch = pcall(vim.fn.systemlist, command)
-  if success and #branch > 0 then
-    M.branch = " " .. branch[1]
-    return M.branch
-  else
+  local branch = vim.fn.systemlist('git branch --show')
+  print(branch[1])
+  if string.find(branch[1], 'fatal') then
     M.branch = ""
     return nil
+  else
+    M.branch = " " .. branch[1]
+    return M.branch
   end
 end
 
