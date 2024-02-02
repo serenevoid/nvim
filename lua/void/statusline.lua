@@ -131,6 +131,7 @@ function Status_line()
     "%=",
     gen_section({ setup_diagnostics() }),
     gen_section({ vim.bo.filetype, }),
+    gen_section({ "%l:%c" }),
   })
 end
 vim.o.statusline = "%!luaeval('Status_line()')"
