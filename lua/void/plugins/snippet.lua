@@ -3,6 +3,7 @@ return {
     "L3MON4D3/LuaSnip",
     version = "v2.*",
     build = "make install_jsregexp",
+    event = { "InsertEnter" },
     config = function ()
       local ls = require("luasnip")
       vim.keymap.set({"i"}, "<C-K>", function() ls.expand() end, {silent = true})

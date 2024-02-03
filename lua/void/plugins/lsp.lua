@@ -13,6 +13,8 @@ return {
       "saadparwaiz1/cmp_luasnip",
       "j-hui/fidget.nvim"
     },
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = { "LspInfo", "LspInstall", "LspUninstall" },
     config = function()
       require("fidget").setup()
       require("mason").setup()

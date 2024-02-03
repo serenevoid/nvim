@@ -9,11 +9,12 @@ return {
   { "nvim-tree/nvim-web-devicons" },
   { "rose-pine/neovim",
     name = "rose-pine",
+    event = { "BufEnter" },
     config = function ()
       require("rose-pine").setup({
         disable_background = true
       })
       color()
-    end
+    end,
   }
 }
