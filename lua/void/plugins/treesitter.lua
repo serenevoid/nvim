@@ -1,8 +1,9 @@
 return({
   {
     "nvim-treesitter/nvim-treesitter",
+    version = false,
     build = ":TSUpdate",
-    event = { "BufReadPost", "BufWritePre", "BufNewFile" },
+    event = { "VeryLazy" },
     opts = {
       highlight = { enable = true },
       indent = { enable = true },
@@ -28,6 +29,9 @@ return({
         "vimdoc",
         "yaml",
       },
-    }
+    },
+   config = function(_, opts)
+     require("nvim-treesitter.configs").setup(opts)
+   end
   },
 })
