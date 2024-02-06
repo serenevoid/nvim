@@ -21,7 +21,10 @@ function M.get_branch()
     return M.branch
   end
   local branch = vim.fn.systemlist('git branch --show')
-  print(branch[1])
+  if branch[1] == nil then
+    M.branch = ""
+    return nil
+  end
   if string.find(branch[1], 'fatal') then
     M.branch = ""
     return nil
