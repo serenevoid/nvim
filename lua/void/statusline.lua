@@ -4,7 +4,6 @@ local function gen_section(items)
   local out = ""
   local bracket_left = "["
   local bracket_right = "]"
-  local padding = " "
   for _, item in pairs(items) do
     if item ~= "" and item ~= nil then
       if out == "" then
@@ -15,10 +14,9 @@ local function gen_section(items)
     else
       bracket_left = ""
       bracket_right = ""
-      padding = ""
     end
   end
-  return bracket_left .. out .. bracket_right .. padding
+  return bracket_left .. out .. bracket_right
 end
 
 -- sensibly group the vim modes
@@ -125,12 +123,15 @@ function Status_line()
 
   return table.concat({
     gen_section({ get_mode_group_display_name(mg) }),
+    " ",
     gen_section({ git.get_branch() or "" }),
     "%=",
     gen_section({ is_readonly(), get_file_icon(), "%t", is_modified() }),
     "%=",
     gen_section({ setup_diagnostics() }),
+    " ",
     gen_section({ vim.bo.filetype, }),
+    " ",
     gen_section({ "%l:%c" }),
   })
 end
