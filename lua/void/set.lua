@@ -43,13 +43,20 @@ vim.g.netrw_banner = 0
 vim.g.netrw_use_errorwindow = 0
 
 -- highlight yanked text
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
+  group = vim.api.nvim_create_augroup('YankHighlight', { clear = true }),
   callback = function()
     vim.highlight.on_yank({
       timeout = 40
     })
   end,
-  group = highlight_group,
   pattern = '*',
+})
+
+vim.api.nvim_create_autocmd('TermOpen', {
+  group = vim.api.nvim_create_augroup('custom-term-open', { clear = true }),
+  callback = function ()
+    vim.opt.number = false
+    vim.opt.relativenumber = false
+  end
 })
