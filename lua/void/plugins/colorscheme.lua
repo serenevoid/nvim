@@ -12,7 +12,8 @@ return {
     event = { "BufEnter" },
     config = function ()
       require("rose-pine").setup({
-        disable_background = true
+        disable_background = true,
+        disable_float_background = true,
       })
       color()
     end,
