@@ -34,7 +34,6 @@ function M.get_branch()
   end
 end
 
-
-vim.api.nvim_create_user_command("GitBlame", ":lua require('void.git').blame_line()", {})
+vim.keymap.set('n', '<space>gb', M.blame_line)
 
 return M
