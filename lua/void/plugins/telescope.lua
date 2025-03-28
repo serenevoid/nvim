@@ -31,9 +31,9 @@ return {
   keys = {
     { '<leader>pf', require('telescope.builtin').find_files, desc = 'Find files' },
     { '<leader>pg', require('telescope.builtin').git_files, desc = 'Find git tracked files' },
-    { '<leader>pb', require('telescope.builtin').buffers, desc = 'Find Buffer' },
-    { '<leader>ph', require('telescope.builtin').help_tags, desc = 'Search Help Tags' },
-    { '<leader>p:', require('telescope.builtin').command_history, desc = 'Command History' },
+    { '<leader>pb', require('telescope.builtin').buffers, desc = 'Find buffer' },
+    { '<leader>ph', require('telescope.builtin').help_tags, desc = 'Search help tags' },
+    { '<leader>p:', require('telescope.builtin').command_history, desc = 'Command history' },
     { '<leader>pd', require('telescope.builtin').diagnostics, desc = 'Workspace diagnostics' },
     {
       '<leader>ps',
