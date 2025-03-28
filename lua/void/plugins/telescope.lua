@@ -40,7 +40,15 @@ return {
       function ()
         require('telescope.builtin').grep_string({ search = vim.fn.input('Grep > ') })
       end,
-      desc = 'Grep String'
+      desc = 'Grep string'
+    },
+    {
+      '<leader>py',
+      function ()
+        local word = vim.fn.getreg('"')
+        require('telescope.builtin').grep_string({ search = word })
+      end,
+      desc = 'Grep selected string'
     },
     {
       '<leader>en',
