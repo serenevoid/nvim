@@ -29,34 +29,15 @@ return {
     },
   },
   keys = {
-    { '<leader>pf', require('telescope.builtin').find_files, desc = 'Find files' },
-    { '<leader>pg', require('telescope.builtin').git_files, desc = 'Find git tracked files' },
-    { '<leader>pb', require('telescope.builtin').buffers, desc = 'Find buffer' },
-    { '<leader>ph', require('telescope.builtin').help_tags, desc = 'Search help tags' },
-    { '<leader>p:', require('telescope.builtin').command_history, desc = 'Command history' },
-    { '<leader>pd', require('telescope.builtin').diagnostics, desc = 'Workspace diagnostics' },
-    {
-      '<leader>ps',
-      function ()
-        require('telescope.builtin').grep_string({ search = vim.fn.input('Grep > ') })
-      end,
-      desc = 'Grep string'
-    },
-    {
-      '<leader>py',
-      function ()
-        local word = vim.fn.getreg('"')
-        require('telescope.builtin').grep_string({ search = word })
-      end,
-      desc = 'Grep selected string'
-    },
-    {
-      '<leader>en',
-      function ()
-        require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') })
-      end,
-      desc = 'Edit neovim'
-    }
+    { '<leader>pf', function () require('telescope.builtin').find_files() end, desc = 'Find files' },
+    { '<leader>pg', function () require('telescope.builtin').git_files() end, desc = 'Find git tracked files' },
+    { '<leader>pb', function () require('telescope.builtin').buffers() end, desc = 'Find buffer' },
+    { '<leader>ph', function () require('telescope.builtin').help_tags() end, desc = 'Search help tags' },
+    { '<leader>p:', function () require('telescope.builtin').command_history() end, desc = 'Command history' },
+    { '<leader>pd', function () require('telescope.builtin').diagnostics() end, desc = 'Workspace diagnostics' },
+    { '<leader>ps', function () require('telescope.builtin').grep_string({ search = vim.fn.input('Grep > ') }) end, desc = 'Grep string' },
+    { '<leader>py', function () local word = vim.fn.getreg('"') require('telescope.builtin').grep_string({ search = word }) end, desc = 'Grep selected string' },
+    { '<leader>en', function () require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') }) end, desc = 'Edit neovim' }
   },
   lazy = true
 }
