@@ -11,40 +11,31 @@ return {
       "hrsh7th/nvim-cmp",
       "j-hui/fidget.nvim"
     },
-    event = { "BufReadPost", "BufNewFile" },
+    event = { "VeryLazy" },
     cmd = { "LspInfo", "LspInstall", "LspUninstall" },
     config = function()
       require("fidget").setup()
       require("mason").setup()
-      require("mason-lspconfig").setup({
-        handlers = {
-          function (server_name)
-            require("lspconfig")[server_name].setup({})
-          end,
-          ["lua_ls"] = function ()
-            require("lspconfig").lua_ls.setup({
-              settings = {
-                Lua = {
-                  runtime = {
-                    version = 'LuaJIT',
-                  },
-                  diagnostics = {
-                    enable = true,
-                    globals = {'vim', 'use'},
-                  },
-                  workspace = {
-                    checkThirdParty = false,
-                    telemetry = { enable = false },
-                    library = {
-                      "${3rd}/love2d/library",
-                      vim.api.nvim_get_runtime_file('', true),
-                    },
-                  },
-                },
+      require("mason-lspconfig").setup()
+      vim.lsp.config("lua_ls", {
+        settings = {
+          Lua = {
+            runtime = {
+              version = 'LuaJIT',
+            },
+            diagnostics = {
+              enable = true,
+              globals = {'vim', 'use', 'bit', 'describe', 'before_each', 'after_each'},
+            },
+            workspace = {
+              checkThirdParty = false,
+              telemetry = { enable = false },
+              library = {
+                "$VIMRUNTIME",
               },
-            })
-          end
-        }
+            },
+          },
+        },
       })
 
       local cmp = require('cmp')
