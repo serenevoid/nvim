@@ -24,8 +24,12 @@ vim.keymap.set("n", "<A-l>", "<cmd>5winc ><CR>")
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '[d', function()
+  vim.diagnostic.jump({count = -1, float = true})
+end, { desc = 'Go to previous diagnostic and show floating message' })
+vim.keymap.set('n', ']d', function()
+  vim.diagnostic.jump({count = 1, float = true})
+end, { desc = 'Go to next diagnostic and show floating message' })
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys

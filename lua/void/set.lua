@@ -62,3 +62,9 @@ vim.api.nvim_create_autocmd('TermOpen', {
     vim.opt.relativenumber = false
   end
 })
+
+vim.api.nvim_create_autocmd({"BufWritePre"}, {
+    group = vim.api.nvim_create_augroup('EndSpaceRemove', { clear = true }),
+    pattern = "*",
+    command = [[%s/\s\+$//e]],
+})
