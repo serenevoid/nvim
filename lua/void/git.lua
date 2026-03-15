@@ -16,13 +16,7 @@ function M.blame_line()
     local hash = string.sub(blame_info[1], 1, 8)
     local author_name = string.sub(blame_info[2], 8)
     local author_date = os.date('%Y %b %d', tonumber(string.sub(blame_info[4], 12)))
-    M.extId = vim.api.nvim_buf_set_extmark(M.bufnr, M.nsId, row - 1, 0, {
-      virt_text = { { hash, 1 }, { " - ", 2 }, { author_name, 0 }, { " - ", 2 }, { author_date, 1 } },
-      virt_text_pos = "right_align"
-    })
-    vim.defer_fn(function ()
-      vim.api.nvim_buf_del_extmark(M.bufnr, M.nsId, M.extId)
-    end, 10000)
+    vim.notify(hash .. " - " .. author_name .. " - " .. author_date, vim.log.levels.INFO)
   else
     vim.notify(blame_info[1], vim.log.levels.ERROR)
   end
